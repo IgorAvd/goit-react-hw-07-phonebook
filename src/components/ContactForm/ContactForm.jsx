@@ -19,7 +19,7 @@ let userSchema = object({
 
 export const ContactForm = () => {
   const { data: contacts, error: getContactsError } = useGetContactsQuery();
-  const [addContacts] = useAddContactsMutation();
+  const [addContacts, { isLoading }] = useAddContactsMutation();
 
   const initialName = '';
   const initialNumber = '';
@@ -109,7 +109,9 @@ export const ContactForm = () => {
           </ErrorText>
         </label>
 
-        <FormBtn type="submit">Add contact</FormBtn>
+        <FormBtn type="submit" disabled={isLoading}>
+          {isLoading ? 'Adding contact...' : 'Add contact'}
+        </FormBtn>
       </WrapperForm>
     </Formik>
   );
